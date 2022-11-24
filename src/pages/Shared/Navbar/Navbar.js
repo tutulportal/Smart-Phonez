@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <div>
+        <div className='custom-z-index-1'>
             {/* main navbar */}
             <div className='w-11/12 mx-auto py-2 lg:w-100 border-b'>
                 <div className="container mx-auto flex flex-row items-center justify-between">
@@ -57,7 +57,7 @@ const Navbar = () => {
                                 Categories
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
                                 </a>
-                                <ul className="p-2 text-white bg-blue-600">
+                                <ul className="p-2 text-white bg-blue-600 custom-z-index-1">
                                 <li><Link>iPhone</Link></li>
                                 <li><Link>Samsung</Link></li>
                                 <li><Link>Xaiomi</Link></li>

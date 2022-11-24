@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const HomeBanner = () => {
     return (
-        <div className="relative overflow-hidden">
-            <div className="bg-white pt-10 pb-14 sm:pt-16 lg:overflow-hidden lg:pt-2 lg:pb-4">
+        <div className="relative overflow-hidden custom-z-index-2">
+            <div className="bg-white pt-10 pb-14 sm:pt-16 lg:pt-2 lg:pb-4">
                 <div className="mx-auto max-w-7xl lg:px-8">
                     <div className="flex flex-row justify-between items-center">
                         <div className="mx-auto my-auto container w-8/12">
