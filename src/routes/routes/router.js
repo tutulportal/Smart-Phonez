@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Main from '../../layouts/Main'
+import Categories from '../../pages/Categories/Categories/Categories';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import NotFound from '../../pages/NotFound/NotFound';
 import Register from '../../pages/Register/Register';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,20 @@ const router = createBrowserRouter([
     {
         path: '*',
         element: <NotFound/>
+    },
+    {
+        path: '/categories',
+        element: <PrivateRoute><Main></Main></PrivateRoute>,
+        children: [
+            {
+                path: '/categories',
+                element: <Home/>
+            },
+            {
+                path: '/categories/:id',
+                element: <Categories/>
+            }
+        ]
     }
 ])
 

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone, faSignIn, faMobile } from '@fortawesome/free-solid-svg-icons'
+import { faPhone, faSignIn, faSignOut, faMobile } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
+import { AuthContext } from './../../../contexts/AuthProvider';
 
 
 
 const Navbar = () => {
+
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err));
+    }
+
     return (
         <div className='custom-z-index-1'>
             {/* main navbar */}
@@ -72,7 +82,9 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="navbar-end">
-                        <Link to='/login' className="btn btn-secondary"><FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>&nbsp;Login</Link>
+                        {
+                            user ? <Link onClick={handleLogOut} className="btn btn-secondary"><FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>&nbsp;Logout</Link> : <Link to='/login' className="btn btn-secondary"><FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>&nbsp;Login</Link>
+                        }
                     </div>
                 </div>
             </div>
