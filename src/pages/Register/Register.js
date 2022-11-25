@@ -29,7 +29,7 @@ const Register = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email, data.mobile, data.userRole);
+                        saveUserWithEmail(data.name, data.email, data.mobile, data.userRole);
                     })
                     .catch(err => console.log(err));
             })
@@ -84,6 +84,21 @@ const Register = () => {
         }else{
             setSignUPError('This email alredy registered');
         }
+    }
+
+    const saveUserWithEmail = (name, email, mobile, userRole) => {
+        const user ={name, email, mobile, userRole};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            setCreatedUserEmail(email);
+        })
     }
 
     return (
