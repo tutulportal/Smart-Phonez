@@ -9,7 +9,6 @@ import Login from '../../pages/Login/Login';
 import NotFound from '../../pages/NotFound/NotFound';
 import Register from '../../pages/Register/Register';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import SubHeader from './../../pages/Shared/SubHeader/SubHeader';
 
 const router = createBrowserRouter([
     {

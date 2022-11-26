@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const MyOrders = () => {
+    const {user} = useContext(AuthContext);
+    const [myOrders, setMyOrders] = useState([{}]);
+    useEffect( () => {
+        fetch(`http://localhost:5000/bookings/${user.email}`)
+        .then(res => res.json())
+        .then(data => setMyOrders(data))
+    }, [user.email])
+
+    console.log(myOrders);
+
     return (
         <div className='w-100'>
             <div className="container mx-auto">
@@ -9,10 +20,13 @@ const MyOrders = () => {
                     <table className="table table-zebra w-full">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Sl</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                            <th>Category</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Location</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -21,18 +35,9 @@ const MyOrders = () => {
                             <td>Cy Ganderton</td>
                             <td>Quality Control Specialist</td>
                             <td>Blue</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Purple</td>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>Brice Swyre</td>
-                            <td>Tax Accountant</td>
-                            <td>Red</td>
+                            <td>Blue</td>
+                            <td>Blue</td>
+                            <td>Blue</td>
                         </tr>
                         </tbody>
                     </table>

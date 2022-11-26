@@ -40,6 +40,7 @@ const SingleProduct = ({product}) => {
         const theModalId = `bookModal${_id}`;
         const booking = {
             "productId": _id,
+            "categoryId": categoryId,
             "productName": productName,
             "productPrice": usedPrice,
             "userEmail": user.email,
