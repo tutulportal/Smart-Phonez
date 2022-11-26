@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
@@ -20,17 +22,43 @@ const Login = () => {
         navigate(from, { replace: true });
     }
 
+    const loginSuccessToast = () => {
+        toast.success('Successfully Logged In', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const loginFailedToast = () => {
+        toast.error('No User Found With This Email!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
     const handleLogin = data => {
         console.log(data);
         setLoginError('');
         signIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
-                console.log(user);
+                loginSuccessToast();
                 setLoginUserEmail(data.email);
                 navigate(from, { replace: true });
             })
             .catch(error => {
+                loginFailedToast();
                 console.log(error.message)
                 setLoginError(error.message);
             });
@@ -68,6 +96,20 @@ const Login = () => {
                     {loginError && <p className='text-red-600'>{loginError}</p>}
                 </form>
             </div>
+
+            <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
+
         </div>
     );
 };

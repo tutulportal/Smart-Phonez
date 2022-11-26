@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './../../contexts/AuthProvider';
 import useToken from './../../hooks/useToken';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
 
@@ -16,6 +18,45 @@ const Register = () => {
 
     if(token){
         navigate('/');
+    }
+
+    const registerSuccessToast = () => {
+        toast.success('Successfully Registered', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const registerFailedToast = () => {
+        toast.error('This Email already used or Failed to register!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const registerFailedToast2 = () => {
+        toast.warn('Logged In But Already Registered!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
 
     const handleSignUp = (data) => {
@@ -34,6 +75,7 @@ const Register = () => {
                     .catch(err => console.log(err));
             })
             .catch(error => {
+                registerFailedToast();
                 console.log(error)
                 setSignUPError(error.message)
             });
@@ -79,9 +121,11 @@ const Register = () => {
             })
             .then(res => res.json())
             .then(data =>{
+                registerSuccessToast();
                 setCreatedUserEmail(email);
             })
         }else{
+            registerFailedToast2();
             setSignUPError('This email alredy registered');
         }
     }
@@ -97,6 +141,7 @@ const Register = () => {
         })
         .then(res => res.json())
         .then(data =>{
+            registerSuccessToast();
             setCreatedUserEmail(email);
         })
     }
@@ -170,6 +215,18 @@ const Register = () => {
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
         </div>
     );
 };
