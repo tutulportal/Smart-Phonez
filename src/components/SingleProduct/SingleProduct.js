@@ -3,10 +3,70 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../../contexts/AuthProvider';
+import { toast } from 'react-toastify';
 
 const SingleProduct = ({product}) => {
     const {_id, categoryId, location, oldPrice, picture, postedOn, productName, sellerName, status, usedPrice, verified, yearsOfUse} = product;
     const {user} = useContext(AuthContext);
+
+    const submitSuccessToast = () => {
+        toast.success('Successfully Booked', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const submitFailedToast = () => {
+        toast.error('Already Booked!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const handleBooking = (e) => {
+        e.preventDefault();
+        const theModalId = `bookModal${_id}`;
+        const booking = {
+            "productId": _id,
+            "productName": productName,
+            "productPrice": usedPrice,
+            "userEmail": user.email,
+            "userName": user.displayName,
+            "userMobile": e.target.mobile.value,
+            "meetingLocation": e.target.meetingLocation.value
+        }
+            fetch('http://localhost:5000/booking', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(booking)
+            })
+            .then(res => res.json())
+            .then(data =>{
+                if(data.acknowledged){
+                    document.getElementById(theModalId).checked = false;
+                    submitSuccessToast();
+                }else{
+                    submitFailedToast();
+                    document.getElementById(theModalId).checked = false;
+                }
+            })
+        
+    }
+
     return (
         <div className="p-6 rounded-md shadow-md dark:bg-gray-900 dark:text-gray-50">
             <img src={picture} alt="" className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500" />
@@ -30,7 +90,7 @@ const SingleProduct = ({product}) => {
                         <h3 className="text-lg font-bold text-center">Book {productName} Now</h3>
                         <p className="py-4 text-center">Fill the form to book</p>
                         <div className="card flex-shrink-0 w-full bg-base-100">
-                            <form className="card-body">
+                            <form className="card-body" onSubmit={handleBooking}>
 
                                 <div className="form-control">
                                     <label className="label">
@@ -50,14 +110,14 @@ const SingleProduct = ({product}) => {
                                     <label className="label">
                                         <span className="label-text">Mobile</span>
                                     </label>
-                                    <input type="text" placeholder="Mobile" className="input input-bordered" />
+                                    <input type="text" required name="mobile" placeholder="Mobile" className="input input-bordered" />
                                 </div>
 
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Meeting Location</span>
                                     </label>
-                                    <input type="text" placeholder="location" className="input input-bordered" />
+                                    <input type="text" required name="meetingLocation" placeholder="location" className="input input-bordered" />
                                 </div>
 
                                 <div className="form-control">
@@ -74,13 +134,26 @@ const SingleProduct = ({product}) => {
                                     <input type="text" placeholder="Price" disabled defaultValue={usedPrice} className="input input-bordered" />
                                 </div>
                                 
-                                <div className="form-control mt-6">
-                                <button className="btn btn-primary">Submit</button>
+                                <div className="form-control mt-6 modal-action">
+                                <input type="submit" value="Submit" className='btn btn-primary' />
                                 </div>
                             </form>
                         </div>
                     </div>
                     </div>
+
+
+                    {/* <a href="#my-modal-2" className="btn btn-primary w-full mt-2">Book Now</a>
+                    <p></p>
+                    <div className="modal" id="my-modal-2">
+                    <div className="modal-box">
+                        
+                        <div className="modal-action">
+                        <a href="#" className="btn">Book Now</a>
+                        </div>
+                    </div>
+                    </div> */}
+
                 </> : <Link to='/login' className='btn btn-primary w-full mt-2'>Login to Get</Link>
             }
 

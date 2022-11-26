@@ -75,7 +75,9 @@ const Navbar = () => {
                                 }
                                 </ul>
                             </li>
-                            <li><a>Item 3</a></li>
+                            {
+                                user ? <li><Link to='/dashboard'>Dashboard</Link></li> : <></>
+                            }
                         </ul>
                     </div>
                     <div className="navbar-end">
