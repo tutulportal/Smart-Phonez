@@ -83,17 +83,9 @@ const MyOrders = () => {
                                     myOrders.map((myOrder, i) => <SingleOrderRow key={myOrder._id} myOrder={myOrder} handleDeleteBooking={handleDeleteBooking} i={i}></SingleOrderRow>)
                                 }
                             </> : <>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td className='text-error font-semibold text-sm'>No Data Found</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <td colSpan="11" className='text-error font-semibold text-sm text-center'>No Data Found</td>
+                            </tr>
                             </>
                         }
                         

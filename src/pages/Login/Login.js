@@ -48,18 +48,19 @@ const Login = () => {
     //     });
     // }
 
-    const handleLogin = data => {
+    const handleLogin = async (data) => {
         setLoginError('');
         console.log(data.email);
         signIn(data.email, data.password)
             .then(result => {
-                setLoginUserEmail(data.email);
                 loginSuccessToast();
+                console.log(result);
                 setLoginUserEmail(data.email);
                 navigate(from, { replace: true });
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
+                setLoginUserEmail(data.email);
                 console.log(error.message)
                 setLoginError(error.message);
             });

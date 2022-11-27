@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
 
 const SingleProduct = ({product}) => {
-    const {_id, categoryId, location, oldPrice, picture, postedOn, productName, sellerName, status, usedPrice, verified, yearsOfUse} = product;
+    const {_id, categoryId, description, location, oldPrice, picture, postedOn, productName, sellerName, status, usedPrice, verified, yearsOfUse} = product;
     const {user} = useContext(AuthContext);
 
     const [categoriName, setCategoryName] = useState('');
@@ -76,6 +76,13 @@ const SingleProduct = ({product}) => {
         
     }
 
+    // for limit the words
+    function shorten(text,max) {
+        return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+    }
+
+    const shortDesc = shorten(description, 200);
+
     return (
         <div className="p-6 rounded-md shadow-md dark:bg-gray-900 dark:text-gray-50">
             <img src={picture} alt="" className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500" />
@@ -84,8 +91,9 @@ const SingleProduct = ({product}) => {
                 <span className="block text-xs font-medium tracking-widest uppercase dark:text-white-500">{postedOn}</span>
                 <h2 className="text-xl font-semibold tracking-wide">{productName}</h2>
             </div>
-            <p className="dark:text-gray-100">Location: {location}</p>
-            <p className="dark:text-gray-100">Condition: {yearsOfUse} Years Used</p>
+            <p className="dark:text-gray-100"><span className='font-bold'>Location:</span> {location}</p>
+            <p className="dark:text-gray-100"><span className='font-bold'>Condition:</span> {yearsOfUse} Years Used</p>
+            <p className='dark:text-gray-100'><span className='font-bold'>Description: </span>{shortDesc}...</p>
             <h2 className='text-white text-2xl'>Offical Rate: <del className='text-secondary font-semibold'>${oldPrice}</del><br/> Used Rate: <span className='text-success font-semibold'>${usedPrice}</span></h2>
             <p className='text-xl'>Status: <span className='text-secondary'>{status}</span></p>
             {
