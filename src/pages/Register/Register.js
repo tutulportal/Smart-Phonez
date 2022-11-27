@@ -61,6 +61,7 @@ const Register = () => {
 
     const handleSignUp = (data) => {
         setSignUPError('');
+        const verified = 'false';
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
@@ -70,7 +71,7 @@ const Register = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        saveUserWithEmail(data.name, data.email, data.mobile, data.userRole);
+                        saveUserWithEmail(data.name, data.email, data.mobile, data.userRole, verified);
                     })
                     .catch(err => console.log(err));
             })
@@ -83,6 +84,7 @@ const Register = () => {
 
     const handleSignUpGoogle = data => {
         setSignUPError('');
+        const verified = 'false';
         loginWithGoogle()
         .then(result => {
             const user = result.user;
@@ -92,7 +94,7 @@ const Register = () => {
             }
             updateUser(userInfo)
                 .then(() => {
-                    saveUser(user.displayName, user.email, user.mobile ? user.mobile : '' , 'buyer');
+                    saveUser(user.displayName, user.email, user.mobile ? user.mobile : '' , 'buyer', verified);
                 })
                 .catch(err => console.log(err));
         })
@@ -102,7 +104,7 @@ const Register = () => {
         });
     }
 
-    const saveUser = (name, email, mobile, userRole) =>{
+    const saveUser = (name, email, mobile, userRole, verified) =>{
         fetch(`http://localhost:5000/jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
@@ -111,7 +113,7 @@ const Register = () => {
         })
 
         if(theHaveUser === 0){
-            const user ={name, email, mobile, userRole};
+            const user ={name, email, mobile, userRole, verified};
             fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
@@ -130,8 +132,8 @@ const Register = () => {
         }
     }
 
-    const saveUserWithEmail = (name, email, mobile, userRole) => {
-        const user ={name, email, mobile, userRole};
+    const saveUserWithEmail = (name, email, mobile, userRole, verified) => {
+        const user ={name, email, mobile, userRole, verified};
         fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
@@ -215,18 +217,6 @@ const Register = () => {
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
                 </form>
             </div>
-            <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            />
         </div>
     );
 };

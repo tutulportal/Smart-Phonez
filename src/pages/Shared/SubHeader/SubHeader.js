@@ -30,17 +30,17 @@ const SubHeader = () => {
                 {
                     userRole === 'seller' ? <>
                         <li className='list-none'><Link to='/dashboard/my-orders' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Orders</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>Add Product</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Products</Link></li>
+                        <li className='list-none'><Link to='/dashboard/add-product' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>Add Product</Link></li>
+                        <li className='list-none'><Link to='/dashboard/my-products' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Products</Link></li>
                     </> : <></>
                 }
                 {
                     userRole === 'admin' ? <>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Orders</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>Add Product</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Products</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>All Sellers</Link></li>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>All Buyers</Link></li>
+                        <li className='list-none'><Link to='/dashboard/my-orders' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Orders</Link></li>
+                        <li className='list-none'><Link to='/dashboard/my-products' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>Add Product</Link></li>
+                        <li className='list-none'><Link to='/dashboard/my-products' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Products</Link></li>
+                        <li className='list-none'><Link to='/dashboard/all-sellers' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>All Sellers</Link></li>
+                        <li className='list-none'><Link to='/dashboard/all-buyers' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>All Buyers</Link></li>
                     </> : <></>
                 }
 
