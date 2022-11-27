@@ -3,13 +3,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, user } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
@@ -33,31 +32,34 @@ const Login = () => {
         progress: undefined,
         theme: "light",
         });
+        setLoginUserEmail(user.email);
     }
 
-    const loginFailedToast = () => {
-        toast.error('No User Found With This Email!', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-    }
+    // const loginFailedToast = () => {
+    //     toast.error('No User Found With This Email!', {
+    //     position: "top-center",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //     });
+    // }
 
     const handleLogin = data => {
         setLoginError('');
+        console.log(data.email);
         signIn(data.email, data.password)
             .then(result => {
+                setLoginUserEmail(data.email);
                 loginSuccessToast();
                 setLoginUserEmail(data.email);
                 navigate(from, { replace: true });
+                setLoginUserEmail(data.email);
             })
             .catch(error => {
-                loginFailedToast();
                 console.log(error.message)
                 setLoginError(error.message);
             });
@@ -95,19 +97,6 @@ const Login = () => {
                     {loginError && <p className='text-red-600'>{loginError}</p>}
                 </form>
             </div>
-
-            <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            />
 
         </div>
     );

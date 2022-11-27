@@ -29,7 +29,7 @@ const SubHeader = () => {
                 }
                 {
                     userRole === 'seller' ? <>
-                        <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Orders</Link></li>
+                        <li className='list-none'><Link to='/dashboard/my-orders' className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Orders</Link></li>
                         <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>Add Product</Link></li>
                         <li className='list-none'><Link className='mx-2 p-2 inline-block bg-slate-200 hover:bg-slate-300 text-black'>My Products</Link></li>
                     </> : <></>

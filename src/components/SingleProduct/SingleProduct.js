@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
@@ -8,6 +8,13 @@ import { toast } from 'react-toastify';
 const SingleProduct = ({product}) => {
     const {_id, categoryId, location, oldPrice, picture, postedOn, productName, sellerName, status, usedPrice, verified, yearsOfUse} = product;
     const {user} = useContext(AuthContext);
+
+    const [categoriName, setCategoryName] = useState('');
+    useEffect( () => {
+        fetch(`http://localhost:5000/categories/${categoryId}`)
+        .then(res => res.json())
+        .then(data => setCategoryName(data[0].categoryName))
+    },[categoryId, categoriName])
 
     const submitSuccessToast = () => {
         toast.success('Successfully Booked', {
@@ -41,6 +48,7 @@ const SingleProduct = ({product}) => {
         const booking = {
             "productId": _id,
             "categoryId": categoryId,
+            "categoryName": categoriName,
             "productName": productName,
             "productPrice": usedPrice,
             "userEmail": user.email,
