@@ -1,10 +1,82 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const SingleSellerRow = ({seller, i}) => {
     const {_id, name, email, verified, mobile} = seller;
-    const handleVerifyAction = () => {
 
+    const verifySuccessToast0 = () => {
+        toast.success('User Verified Successfully!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
+
+    const verifySuccessToast1 = () => {
+        toast.success('User Unverified!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const nonVerifyToast = () => {
+        toast.error("Something Wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const handleVerifyAction = (e) => {
+        if(e.target.getAttribute('verified') === 'false'){
+            e.target.setAttribute('verified', 'true');
+            updateVerfication('true');
+        }else{
+            e.target.setAttribute('verified', 'false');
+            updateVerfication('false');
+        }
+    }
+    
+
+    const updateVerfication = (verified) => {
+        fetch(`http://localhost:5000/users/update/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({verified})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.message === 'updated'){
+                if(verified === 'true'){
+                    verifySuccessToast0()
+                }else{
+                    verifySuccessToast1()
+                }
+            }else{
+                nonVerifyToast()
+            }
+        })
+    }
+
     return (
         <tr>
             <td>{i+1}</td>
