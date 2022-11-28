@@ -36,11 +36,11 @@ const AddProduct = () => {
         .then(data => setDbUser(data))
     }, [user.email])
 
-    let verifiedUser = "0";
+    let verifiedUser = "false";
     if(dbUser.verified === 'true'){
-        verifiedUser = "1";
+        verifiedUser = "true";
     }else{
-        verifiedUser = "0";
+        verifiedUser = "false";
     } 
 
     const addProductSuccessToast = () => {
