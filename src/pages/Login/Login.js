@@ -36,18 +36,18 @@ const Login = () => {
         setLoginUserEmail(user.email);
     }
 
-    // const loginFailedToast = () => {
-    //     toast.error('No User Found With This Email!', {
-    //     position: "top-center",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //     });
-    // }
+    const loginFailedToast = (msg) => {
+        toast.error(msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
 
     const handleLogin = async (data) => {
         setLoginError('');
@@ -61,9 +61,15 @@ const Login = () => {
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
-                setLoginUserEmail(data.email);
                 console.log(error.message)
                 setLoginError(error.message);
+                if(error.message === 'Firebase: Error (auth/wrong-password).'){
+                    loginFailedToast(error.message);
+                }else if(error.message === 'Firebase: Error (auth/user-not-found).'){
+                    loginFailedToast(error.message);
+                }else{
+                    setLoginUserEmail(data.email);
+                }
             });
     }
 
