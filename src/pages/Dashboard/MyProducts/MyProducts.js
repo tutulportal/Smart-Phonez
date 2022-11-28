@@ -11,6 +11,15 @@ const MyProducts = () => {
         .then(data => setProducts(data))
     }, [user.email])
 
+    const handleDeleteMyProduct = id => {
+        const confirm = window.confirm('Are you sure you want to delete this product?');
+        if(confirm){
+            console.log(id)
+        }else{
+            
+        }
+    }
+
     return (
         <div className='w-100'>
             <div className="container mx-auto">
@@ -26,7 +35,7 @@ const MyProducts = () => {
                             <th>Product Price</th>
                             <th>Category</th>
                             <th>Condition</th>
-                            <th>Status</th>
+                            <th>Sold Out</th>
                             <th>Location</th>
                             <th>Advertise</th>
                             <th>Action</th>
@@ -36,7 +45,7 @@ const MyProducts = () => {
                             {
                                 products.length > 0 ? <>
                                     {
-                                        products.map((product, i) => <RowMyProducts key={i+1} product={product} i={i}></RowMyProducts>)
+                                        products.map((product, i) => <RowMyProducts key={i+1} product={product} i={i} handleDeleteMyProduct={handleDeleteMyProduct}></RowMyProducts>)
                                     }
 
                                 </> : <>

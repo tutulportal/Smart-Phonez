@@ -51,6 +51,7 @@ const SingleProduct = ({product}) => {
             "categoryName": categoriName,
             "productName": productName,
             "productPrice": usedPrice,
+            "picture": picture,
             "userEmail": user.email,
             "userName": user.displayName,
             "userMobile": e.target.mobile.value,

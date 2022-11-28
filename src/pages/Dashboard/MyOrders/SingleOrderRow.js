@@ -2,10 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SingleOrderRow = ({myOrder, handleDeleteBooking, i}) => {
-    const {_id, categoryId, categoryName, meetingLocation, productId, productName, userEmail, userMobile, userName, productPrice} = myOrder;
+    const {_id, categoryId, categoryName, meetingLocation, picture, productId, productName, userEmail, userMobile, userName, productPrice} = myOrder;
     return (
         <tr>
             <td>{i+1}</td>
+            <td>
+                <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                        <img src={picture} alt={picture} />
+                    </div>
+                    </div>
+                </div>
+            </td>
             <td>{productName}</td>
             <td>${productPrice}</td>
             <td><Link className='text-primary font-semibold' to={`/categories/${categoryId}`}>{categoryName}</Link></td>
