@@ -5,6 +5,7 @@ import { AuthContext } from './../../contexts/AuthProvider';
 import useToken from './../../hooks/useToken';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 const Register = () => {
 
@@ -16,9 +17,12 @@ const Register = () => {
     const navigate = useNavigate();
     const [theHaveUser, setHaveUser] = useState();
 
-    if(token){
-        navigate('/');
-    }
+    useEffect( () => {
+        if(token){
+            navigate('/');
+        }
+    }, [navigate, token])
+    
 
     const registerSuccessToast = () => {
         toast.success('Successfully Registered', {
@@ -94,7 +98,7 @@ const Register = () => {
             }
             updateUser(userInfo)
                 .then(() => {
-                    saveUser(user.displayName, user.email, user.mobile ? user.mobile : '' , 'buyer', verified);
+                    saveUser(user.displayName, user?.email, user.mobile ? user.mobile : '' , 'buyer', verified);
                 })
                 .catch(err => console.log(err));
         })
@@ -105,15 +109,7 @@ const Register = () => {
     }
 
     const saveUser = (name, email, mobile, userRole, verified) =>{
-        fetch(`http://localhost:5000/jwt?email=${email}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            setHaveUser(data.haveUser);
-        })
-
-        if(theHaveUser === 0){
-            const user ={name, email, mobile, userRole, verified};
+        const user ={name, email, mobile, userRole, verified};
             fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
@@ -126,10 +122,6 @@ const Register = () => {
                 registerSuccessToast();
                 setCreatedUserEmail(email);
             })
-        }else{
-            registerFailedToast2();
-            setSignUPError('This email alredy registered');
-        }
     }
 
     const saveUserWithEmail = (name, email, mobile, userRole, verified) => {
