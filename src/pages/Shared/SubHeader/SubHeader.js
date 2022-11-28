@@ -20,7 +20,7 @@ const SubHeader = () => {
 
     return (
         <div className='w-100 bg-slate-200'>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row justify-center items-center flex-wrap">
 
                 {
                     userRole === 'buyer' ? <>
