@@ -56,7 +56,10 @@ const Navbar = () => {
                                 }
                             </ul>
                             </li>
-                            <li><Link to='/dashboard'>Dashboard</Link></li>
+                            {
+                                user ? <li><Link to='/dashboard'>Dashboard</Link></li> : <></>
+                            }
+                            <li><Link to='/blogs'>Blogs</Link></li>
                         </ul>
                         </div>
                         <Link to='/' className="btn btn-ghost normal-case text-xl text-white"><FontAwesomeIcon icon={faMobile}></FontAwesomeIcon>&nbsp;Smart Phonez</Link>
@@ -78,6 +81,7 @@ const Navbar = () => {
                             {
                                 user ? <li><Link to='/dashboard'>Dashboard</Link></li> : <></>
                             }
+                            <li><Link to='/blogs'>Blogs</Link></li>
                         </ul>
                     </div>
                     <div className="navbar-end">

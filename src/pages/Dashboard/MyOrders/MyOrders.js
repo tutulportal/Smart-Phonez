@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import UseTitle from '../../../hooks/useTitle';
 import SingleOrderRow from './SingleOrderRow';
 
 const MyOrders = () => {
+    UseTitle('My Orders');
     const {user} = useContext(AuthContext);
     const [currentState, setCurrentState] = useState(false);
     const [myOrders, setMyOrders] = useState([{_id: ''}]);

@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from './../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 import { toast } from 'react-toastify';
+import UseTitle from '../../hooks/useTitle';
 
 const Login = () => {
-
+    UseTitle('Login');
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signIn, user } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');

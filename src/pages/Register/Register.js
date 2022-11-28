@@ -6,9 +6,10 @@ import useToken from './../../hooks/useToken';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import UseTitle from '../../hooks/useTitle';
 
 const Register = () => {
-
+    UseTitle('Register');
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, loginWithGoogle } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');

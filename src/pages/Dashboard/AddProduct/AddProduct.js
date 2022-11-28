@@ -3,8 +3,11 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import UseTitle from '../../../hooks/useTitle';
 
 const AddProduct = () => {
+
+    UseTitle('Add Product');
 
     const currentMoment = moment().format('LLL');
 

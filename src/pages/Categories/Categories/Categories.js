@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import SingleProduct from '../../../components/SingleProduct/SingleProduct';
+import UseTitle from '../../../hooks/useTitle';
 
 const Categories = () => {
     const categoryInfo = useLoaderData();
@@ -11,6 +12,8 @@ const Categories = () => {
         .then(res => res.json())
         .then(data => setProducts(data))
     }, [categoryInfo])
+    
+    UseTitle(`${categoryInfo[0].categoryName}`);
 
     return (
         <div className='container mx-auto'>

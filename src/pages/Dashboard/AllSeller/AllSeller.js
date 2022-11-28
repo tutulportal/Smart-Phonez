@@ -1,14 +1,69 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import UseTitle from '../../../hooks/useTitle';
 import SingleSellerRow from './SingleSellerRow';
 
 const AllSeller = () => {
 
+    UseTitle('All Sellers');
+
+    const [currentState, setCurrentState] = useState(false);
     const [sellers, setSellers] = useState([{}]);
     useEffect( () => {
         fetch('http://localhost:5000/users/sellers')
         .then(res => res.json())
         .then(data => setSellers(data))
-    }, [])
+    }, [currentState])
+
+    const deleteSuccessToast = () => {
+        toast.success('User Deleted Successfully!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const deleteFailedToast = () => {
+        toast.error("Can't Delete User, Something Wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const handleDeleteSellers = (id) => {
+        const confirm = window.confirm('Are you sure you want to delete this user?');
+        
+        if(confirm){
+            fetch(`http://localhost:5000/users/delete/${id}`, {
+                method: 'DELETE', 
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.deletedCount > 0){
+                    setCurrentState(!currentState);
+                    deleteSuccessToast();
+                }else{
+                    deleteFailedToast();
+                }
+            })
+        }else{
+
+        }
+    }
 
     return (
         <div className='w-100'>
@@ -33,7 +88,7 @@ const AllSeller = () => {
                         {
                             sellers.length > 0 ? <>
                                 {
-                                    sellers.map((seller, i) => <SingleSellerRow key={i+1} seller={seller} i={i}></SingleSellerRow> )
+                                    sellers.map((seller, i) => <SingleSellerRow key={i+1} seller={seller} i={i} handleDeleteSellers={handleDeleteSellers}></SingleSellerRow> )
                                 }
                             </> :
                                 <tr>

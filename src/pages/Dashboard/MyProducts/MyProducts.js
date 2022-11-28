@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import UseTitle from '../../../hooks/useTitle';
 import RowMyProducts from './RowMyProducts';
 
 const MyProducts = () => {
+    UseTitle('My Products');
     const {user} = useContext(AuthContext);
     const [currentState, setCurrentState] = useState(false);
     const [products, setProducts] = useState([{}]);
