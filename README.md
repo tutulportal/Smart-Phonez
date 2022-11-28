@@ -1,6 +1,6 @@
 # Project Name: - Smart Phonez
 
-Live Preview Link: 
+Live Preview Link: https://smart-phonez.web.app
 
 ## Technologies
 
