@@ -51,22 +51,20 @@ const Login = () => {
 
     const handleLogin = async (data) => {
         setLoginError('');
-        console.log(data.email);
         signIn(data.email, data.password)
             .then(result => {
                 loginSuccessToast();
-                console.log(result);
                 setLoginUserEmail(data.email);
                 navigate(from, { replace: true });
                 setLoginUserEmail(data.email);
             })
             .catch(error => {
-                console.log(error.message)
-                setLoginError(error.message);
                 if(error.message === 'Firebase: Error (auth/wrong-password).'){
                     loginFailedToast(error.message);
+                    setLoginError(error.message);
                 }else if(error.message === 'Firebase: Error (auth/user-not-found).'){
                     loginFailedToast(error.message);
+                    setLoginError(error.message);
                 }else{
                     setLoginUserEmail(data.email);
                 }
