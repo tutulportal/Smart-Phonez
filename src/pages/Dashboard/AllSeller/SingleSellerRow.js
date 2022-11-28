@@ -55,7 +55,7 @@ const SingleSellerRow = ({seller, i, handleDeleteSellers}) => {
     
 
     const updateVerfication = (verified) => {
-        fetch(`http://localhost:5000/users/update/${_id}`, {
+        fetch(`https://smart-phonez-server.vercel.app/users/update/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

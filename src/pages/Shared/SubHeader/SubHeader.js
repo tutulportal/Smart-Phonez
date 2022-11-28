@@ -11,7 +11,7 @@ const SubHeader = () => {
         }
     ]);
     useEffect( () => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://smart-phonez-server.vercel.app/users/${user.email}`)
         .then(res => res.json())
         .then(data => setUserType(data))
     }, [user.email])

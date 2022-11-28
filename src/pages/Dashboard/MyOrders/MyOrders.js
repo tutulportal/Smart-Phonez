@@ -10,7 +10,7 @@ const MyOrders = () => {
     const [currentState, setCurrentState] = useState(false);
     const [myOrders, setMyOrders] = useState([{_id: ''}]);
     useEffect( () => {
-        fetch(`http://localhost:5000/bookings/${user.email}`)
+        fetch(`https://smart-phonez-server.vercel.app/bookings/${user.email}`)
         .then(res => res.json())
         .then(data => setMyOrders(data))
     }, [user.email, currentState])
@@ -42,7 +42,7 @@ const MyOrders = () => {
     }
 
     const handleDeleteBooking = (id) => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://smart-phonez-server.vercel.app/bookings/${id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

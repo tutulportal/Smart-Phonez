@@ -11,14 +11,14 @@ const SingleProduct = ({product}) => {
 
     const [userinfo, setUserInfo] = useState([{}]);
     useEffect( () => {
-        fetch(`http://localhost:5000/users/${email}`)
+        fetch(`https://smart-phonez-server.vercel.app/users/${email}`)
         .then(res => res.json())
         .then(data => setUserInfo(data))
     }, [email])
 
     const [categoriName, setCategoryName] = useState('');
     useEffect( () => {
-        fetch(`http://localhost:5000/categories/${categoryId}`)
+        fetch(`https://smart-phonez-server.vercel.app/categories/${categoryId}`)
         .then(res => res.json())
         .then(data => setCategoryName(data[0].categoryName))
     },[categoryId, categoriName])
@@ -64,7 +64,7 @@ const SingleProduct = ({product}) => {
             "userMobile": e.target.mobile.value,
             "meetingLocation": e.target.meetingLocation.value
         }
-            fetch('http://localhost:5000/booking', {
+            fetch('https://smart-phonez-server.vercel.app/booking', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

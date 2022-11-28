@@ -105,7 +105,7 @@ const RowMyProducts = ({product, i, handleDeleteMyProduct}) => {
     }
 
     const updateAdversise = (advertise) => {
-        fetch(`http://localhost:5000/update-product/${_id}`, {
+        fetch(`https://smart-phonez-server.vercel.app/update-product/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
@@ -128,7 +128,7 @@ const RowMyProducts = ({product, i, handleDeleteMyProduct}) => {
     }
 
     const updateStatus = (status) => {
-        fetch(`http://localhost:5000/update-product/${_id}`, {
+        fetch(`https://smart-phonez-server.vercel.app/update-product/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

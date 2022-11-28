@@ -26,7 +26,7 @@ const AddProduct = () => {
     // load all categories
     const [categories, setCategories] = useState([{}]);
     useEffect( () => {
-        fetch(`http://localhost:5000/categories`)
+        fetch(`https://smart-phonez-server.vercel.app/categories`)
         .then(res => res.json())
         .then(data => setCategories(data));
     }, [])
@@ -34,7 +34,7 @@ const AddProduct = () => {
     // load user data from db
     const [dbUser, setDbUser] = useState([{}]);
     useEffect( () => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://smart-phonez-server.vercel.app/users/${user.email}`)
         .then(res => res.json())
         .then(data => setDbUser(data))
     }, [user.email])
@@ -96,7 +96,7 @@ const AddProduct = () => {
             "email": user.email
         }
 
-        fetch('http://localhost:5000/add-product', {
+        fetch('https://smart-phonez-server.vercel.app/add-product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -111,7 +111,7 @@ const Register = () => {
 
     const saveUser = (name, email, mobile, userRole, verified) =>{
         const user ={name, email, mobile, userRole, verified};
-            fetch('http://localhost:5000/users', {
+            fetch('https://smart-phonez-server.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -127,7 +127,7 @@ const Register = () => {
 
     const saveUserWithEmail = (name, email, mobile, userRole, verified) => {
         const user ={name, email, mobile, userRole, verified};
-        fetch('http://localhost:5000/users', {
+        fetch('https://smart-phonez-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

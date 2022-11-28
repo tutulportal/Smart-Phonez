@@ -10,7 +10,7 @@ const MyProducts = () => {
     const [currentState, setCurrentState] = useState(false);
     const [products, setProducts] = useState([{}]);
     useEffect( () => {
-        fetch(`http://localhost:5000/find-products/${user.email}`)
+        fetch(`https://smart-phonez-server.vercel.app/find-products/${user.email}`)
         .then(res => res.json())
         .then(data => setProducts(data))
     }, [user.email, currentState])
@@ -44,7 +44,7 @@ const MyProducts = () => {
     const handleDeleteMyProduct = id => {
         const confirm = window.confirm('Are you sure you want to delete this product?');
         if(confirm){
-            fetch(`http://localhost:5000/products/delete/${id}`, {
+            fetch(`https://smart-phonez-server.vercel.app/products/delete/${id}`, {
                 method: 'DELETE', 
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`

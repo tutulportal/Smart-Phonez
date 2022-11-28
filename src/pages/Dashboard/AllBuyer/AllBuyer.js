@@ -8,7 +8,7 @@ const AllBuyer = () => {
     const [currentState, setCurrentState] = useState(false);
     const [buyers, setBuyers] = useState([{}]);
     useEffect( () => {
-        fetch('http://localhost:5000/users/buyers')
+        fetch('https://smart-phonez-server.vercel.app/users/buyers')
         .then(res => res.json())
         .then(data => setBuyers(data))
     }, [currentState])
@@ -43,7 +43,7 @@ const AllBuyer = () => {
         const confirm = window.confirm('Are you sure you want to delete this user?');
         
         if(confirm){
-            fetch(`http://localhost:5000/users/delete/${id}`, {
+            fetch(`https://smart-phonez-server.vercel.app/users/delete/${id}`, {
                 method: 'DELETE', 
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
