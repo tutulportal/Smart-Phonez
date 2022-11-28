@@ -1,22 +1,64 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import RowMyProducts from './RowMyProducts';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext);
+    const [currentState, setCurrentState] = useState(false);
     const [products, setProducts] = useState([{}]);
     useEffect( () => {
         fetch(`http://localhost:5000/find-products/${user.email}`)
         .then(res => res.json())
         .then(data => setProducts(data))
-    }, [user.email])
+    }, [user.email, currentState])
+
+    const successDeleteToast = () => {
+        toast.success('Product Deleted Successfully!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+
+    const errorDeleteToast = () => {
+        toast.error("Can't Delete, Something wrong!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
 
     const handleDeleteMyProduct = id => {
         const confirm = window.confirm('Are you sure you want to delete this product?');
         if(confirm){
-            console.log(id)
+            fetch(`http://localhost:5000/products/delete/${id}`, {
+                method: 'DELETE', 
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.deletedCount > 0){
+                    setCurrentState(!currentState);
+                    successDeleteToast();
+                }else{
+                    errorDeleteToast();
+                }
+            })
         }else{
-            
+
         }
     }
 
